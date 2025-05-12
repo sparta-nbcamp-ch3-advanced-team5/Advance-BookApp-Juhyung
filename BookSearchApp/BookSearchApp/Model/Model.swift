@@ -17,4 +17,7 @@ struct BookDocument: Codable {
     let authors: [String]
     let price: Int
     let thumbnail: String
+    //url    String    도서 상세 URL 로 바꿔야하나 고려
+    let contents: String
+
 }

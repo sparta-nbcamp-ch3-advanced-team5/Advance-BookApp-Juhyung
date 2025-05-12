@@ -6,36 +6,34 @@
 //
 
 import Foundation
+import Alamofire
+import RxSwift
 
 class NetworkManager {
-    func searchBooks(query: String, completion: @escaping ([BookDocument]) -> Void) {
 
-        let apiKey = "f80a80c44f07dbdb1050a27b0b7f9999"
+    let apiKey = "f80a80c44f07dbdb1050a27b0b7f9999"
+    static let shared = NetworkManager()
 
-        guard let url = URL(string: "https://dapi.kakao.com/v3/search/book?query=\(query)&size=20&page=1") else {
-            completion([])
-            return
-        }
+    func searchBooks(query: String) -> Single<[BookDocument]> {
 
-        var request = URLRequest(url: url)
-        request.httpMethod = "GET"
-        request.setValue("KakaoAK \(apiKey)", forHTTPHeaderField: "Authorization")
+           let url = "https://dapi.kakao.com/v3/search/book?query=\(query)&size=20&page=1"
 
-        URLSession.shared.dataTask(with: request) { data, response, error in
-            guard let data = data else {
-                completion([])
-                return
-            }
+           let headers: HTTPHeaders = ["Authorization": "KakaoAK \(apiKey)"]
 
-            do {
-                let response = try JSONDecoder().decode(ApiResponse.self, from: data)
-                DispatchQueue.main.async {
-                    completion(response.documents)
-                }
-            } catch {
-                print("실패: \(error.localizedDescription)")
-                completion([])
-            }
-        }.resume()
-    }
+           return Single.create { single in
+               AF.request(url, headers: headers)
+                   .validate()
+                   .responseDecodable(of: ApiResponse.self) { response in
+                       switch response.result {
+                       case .success(let result):
+                           single(.success(result.documents))
+                       case .failure(let error):
+                           single(.failure(error))
+                       }
+                   }
+               return Disposables.create()
+           }
+       }
 }
+
+

@@ -34,8 +34,9 @@ class SearchViewController: UIViewController {
         view.backgroundColor = .white
         setupSearchBar()
         setupLayout()
-        
+
         collectionView.reloadData()
+        searchBar.becomeFirstResponder()
     }
 
     private func setupLayout() {
@@ -101,6 +102,7 @@ extension SearchViewController: UISearchBarDelegate {
                     guard let self = self else { return }
                     self.books = books
                     self.collectionView.reloadData()
+                    searchBar.resignFirstResponder()
                 },
                 onFailure: { error in
                     print("error: \(error.localizedDescription)")
@@ -108,7 +110,6 @@ extension SearchViewController: UISearchBarDelegate {
             )
             .disposed(by: disposeBag)
     }
-
 }
 
 extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSource {

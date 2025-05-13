@@ -121,8 +121,10 @@ class BookDetailViewController: UIViewController {
             .forEach {floatingView.addSubview($0)}
 
         contentStackView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
-            $0.width.equalToSuperview()
+            $0.top.equalToSuperview()
+            $0.centerX.equalToSuperview()
+            $0.width.equalToSuperview().inset(20)
+
         }
 
         scrollView.snp.makeConstraints {
@@ -130,33 +132,33 @@ class BookDetailViewController: UIViewController {
             $0.bottom.equalTo(floatingView.snp.top).offset(-12)
         }
 
-        titleLabel.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide).offset(20)
-            $0.leading.trailing.equalToSuperview().inset(-12)
-        }
-
-        authorLabel.snp.makeConstraints {
-            $0.top.equalTo(titleLabel.snp.bottom).offset(12)
-            $0.leading.trailing.equalToSuperview().inset(-12)
-        }
+//        titleLabel.snp.makeConstraints {
+//            $0.top.equalTo(view.safeAreaLayoutGuide).offset(20)
+//            $0.leading.trailing.equalToSuperview().inset(-12)
+//        }
+//
+//        authorLabel.snp.makeConstraints {
+//            $0.top.equalTo(titleLabel.snp.bottom).offset(12)
+//            $0.leading.trailing.equalToSuperview().inset(-12)
+//        }
 
         imageView.snp.makeConstraints {
-            $0.top.equalTo(authorLabel.snp.bottom).offset(20)
-            $0.centerX.equalToSuperview()
-            $0.width.equalTo(200)
+//            $0.top.equalTo(authorLabel.snp.bottom).offset(20)
+//            $0.centerX.equalToSuperview()
+//            $0.width.equalTo(200)
             $0.height.equalTo(350)
         }
 
-        priceLabel.snp.makeConstraints {
-            $0.top.equalTo(imageView.snp.bottom).offset(12)
-            $0.leading.trailing.equalToSuperview().inset(-12)
-        }
-
-        descriptionLabel.snp.makeConstraints {
-            $0.top.equalTo(priceLabel.snp.bottom).offset(16)
-            $0.leading.trailing.equalToSuperview().inset(40)
-            $0.bottom.equalToSuperview().inset(20)
-        }
+//        priceLabel.snp.makeConstraints {
+//            $0.top.equalTo(imageView.snp.bottom).offset(12)
+//            $0.leading.trailing.equalToSuperview().inset(-12)
+//        }
+//
+//        descriptionLabel.snp.makeConstraints {
+//            $0.top.equalTo(priceLabel.snp.bottom).offset(16)
+//            $0.leading.trailing.equalToSuperview().inset(40)
+//            $0.bottom.equalToSuperview().inset(20)
+//        }
 
         closeButton.snp.makeConstraints {
             $0.leading.top.bottom.equalToSuperview()

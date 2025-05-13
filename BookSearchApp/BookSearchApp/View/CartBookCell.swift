@@ -10,9 +10,9 @@ import UIKit
 import SnapKit
 import Kingfisher
 
-class BookCell: UICollectionViewCell {
+class CartBookCell: UITableViewCell {
 
-    static let id = "BookCell"
+    static let id = "CartBookCell"
 
     private let titleLabel: UILabel = {
         let label = UILabel()
@@ -51,9 +51,8 @@ class BookCell: UICollectionViewCell {
         return stackView
     }()
 
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        backgroundColor = .yellow
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupLayout()
     }
 
@@ -77,10 +76,11 @@ class BookCell: UICollectionViewCell {
         }
     }
 
-    func configure(with book: BookDocument) {
-        titleLabel.text = book.title
+    func configure(with book: Books) {
+        titleLabel.text = book.title ?? "제목 없음"
         //작가 없음 출력안됨
-        authorLabel.text = book.authors.first ?? "작가 없음"
+        authorLabel.text = book.authors?.isEmpty == false ? book.authors : "작가 없음"
+
         let price = NumberFormatter.localizedString(from: NSNumber(value: book.price), number: .decimal)
         priceLabel.text = "\(price)원"
     }

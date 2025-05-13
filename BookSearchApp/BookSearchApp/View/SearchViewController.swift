@@ -8,11 +8,14 @@
 import Foundation
 import UIKit
 import SnapKit
+import RxSwift
 
 class SearchViewController: UIViewController {
 
     private let searchBar = UISearchBar()
     private var books: [BookDocument] = []
+    private let disposeBag = DisposeBag()
+
 
     private lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
@@ -33,6 +36,7 @@ class SearchViewController: UIViewController {
         setupLayout()
 
         collectionView.reloadData()
+        searchBar.becomeFirstResponder()
     }
 
     private func setupLayout() {
@@ -91,12 +95,20 @@ extension SearchViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let query = searchBar.text, !query.isEmpty else { return }
 
-        NetworkManager().searchBooks(query: query) { [weak self] books in
-            guard let self = self else { return }
-            print("책 갯수 확인: \(books.count)")
-            self.books = books
-            self.collectionView.reloadData()
-        }
+        NetworkManager.shared.searchBooks(query: query)
+            .observe(on: MainScheduler.instance)
+            .subscribe(
+                onSuccess: { [weak self] books in
+                    guard let self = self else { return }
+                    self.books = books
+                    self.collectionView.reloadData()
+                    searchBar.resignFirstResponder()
+                },
+                onFailure: { error in
+                    print("error: \(error.localizedDescription)")
+                }
+            )
+            .disposed(by: disposeBag)
     }
 }
 
@@ -133,7 +145,7 @@ extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSo
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let detailVC = BookDetailView()
+        let detailVC = BookDetailViewController()
         detailVC.bookDocument = books[indexPath.row]
         detailVC.modalPresentationStyle = .automatic
         present(detailVC, animated: true, completion: nil)

@@ -33,10 +33,11 @@ class TabBarViewController: UITabBarController {
         let searchViewController = SearchViewController()
         let cartViewController = CartViewController()
 
+        let cartVC = UINavigationController(rootViewController: cartViewController)
         searchViewController.tabBarItem = UITabBarItem(title: "검색 탭", image: nil, tag: 0)
-        cartViewController.tabBarItem = UITabBarItem(title: "담은 책 리스트 탭", image:nil, tag: 1)
+        cartVC.tabBarItem = UITabBarItem(title: "담은 책 리스트 탭", image:nil, tag: 1)
 
 
-        self.viewControllers = [searchViewController, cartViewController]
+        self.viewControllers = [searchViewController, cartVC]
     }
 }

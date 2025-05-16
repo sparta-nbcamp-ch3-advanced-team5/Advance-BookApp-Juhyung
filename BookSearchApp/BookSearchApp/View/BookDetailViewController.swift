@@ -121,7 +121,7 @@ class BookDetailViewController: UIViewController {
             .forEach {floatingView.addSubview($0)}
 
         contentStackView.snp.makeConstraints {
-            $0.top.equalToSuperview()
+            $0.top.equalToSuperview().offset(20)
             $0.centerX.equalToSuperview()
             $0.width.equalToSuperview().inset(20)
 
@@ -198,15 +198,8 @@ class BookDetailViewController: UIViewController {
     @objc private func cartTapped() {
         guard let book = bookDocument else { return }
 
-        let context = CoreDataManager.shared.context
-        let entity = Books(context: context)
-        entity.title = book.title
-        entity.thumbnail = book.thumbnail
-        entity.price = Int64(book.price)
-        entity.contents = book.contents
-        entity.authors = book.authors.first
 
-        CoreDataManager.shared.saveContext()
+        CoreDataManager.shared.saveingBook(book)
         dismiss(animated: true, completion: nil)
     }
 

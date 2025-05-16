@@ -3,8 +3,20 @@
     <entity name="Books" representedClassName="Books" syncable="YES" codeGenerationType="class">
         <attribute name="authors" optional="YES" attributeType="String"/>
         <attribute name="contents" optional="YES" attributeType="String"/>
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="isbn" optional="YES" attributeType="String"/>
         <attribute name="price" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="thumbnail" optional="YES" attributeType="String"/>
         <attribute name="title" optional="YES" attributeType="String"/>
+        <relationship name="recent" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="RecentView" inverseName="book" inverseEntity="RecentView"/>
+        <relationship name="saved" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="SavedBooks" inverseName="book" inverseEntity="SavedBooks"/>
+    </entity>
+    <entity name="RecentView" representedClassName="RecentView" syncable="YES" codeGenerationType="class">
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <relationship name="book" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Books" inverseName="recent" inverseEntity="Books"/>
+    </entity>
+    <entity name="SavedBooks" representedClassName="SavedBooks" syncable="YES" codeGenerationType="class">
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <relationship name="book" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Books" inverseName="saved" inverseEntity="Books"/>
     </entity>
 </model>

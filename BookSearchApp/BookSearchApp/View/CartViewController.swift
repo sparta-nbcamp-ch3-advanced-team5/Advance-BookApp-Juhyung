@@ -8,7 +8,6 @@
 import Foundation
 import UIKit
 
-//뭔가 구조 자체가 잘못된 느낌이 든다 view가 달라서 그냥 cell을 두개를 쓰긴했는데 최적화하는건 실패
 class CartViewController: UIViewController {
 
     private var books: [Books] = []
@@ -27,6 +26,7 @@ class CartViewController: UIViewController {
         fetchBooks()
     }
 
+    
     private func setupNav() {
         navigationItem.title = "담은 책 목록"
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "전체 삭제", style: .plain, target: self, action: #selector(deleteAllBooks)
@@ -53,7 +53,8 @@ class CartViewController: UIViewController {
     }
 
     private func fetchBooks() {
-        books = CoreDataManager.shared.fetchBooks()
+        //여기서 detailVC에서 담기 버튼을 눌러서 저장된 책들을 불러옴
+        books = CoreDataManager.shared.fetchSavedBooks()
         tableView.reloadData()
     }
 
@@ -74,18 +75,18 @@ extension CartViewController: UITableViewDataSource, UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let book = books[indexPath.row]
+        let selectedRow = books[indexPath.row]
         guard let cell = tableView.dequeueReusableCell(withIdentifier: CartBookCell.id, for: indexPath) as? CartBookCell else {
             return UITableViewCell()
         }
-        cell.configure(with: book)
+        cell.configure(with: selectedRow)
         return cell
     }
 
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            let book = books[indexPath.row]
-            CoreDataManager.shared.delete(object: book)
+            let selectedRow = books[indexPath.row]
+            CoreDataManager.shared.delete(object: selectedRow)
             books.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .automatic)
         }

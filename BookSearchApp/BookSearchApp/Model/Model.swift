@@ -7,7 +7,6 @@
 
 import Foundation
 
-//codable 과 decodable?
 struct ApiResponse: Codable {
     let documents: [BookDocument]
 }
@@ -17,7 +16,20 @@ struct BookDocument: Codable {
     let authors: [String]
     let price: Int
     let thumbnail: String
-    //url    String    도서 상세 URL 로 바꿔야하나 고려
     let contents: String
+    let isbn: String
 
 }
+
+extension BookDocument {
+    init(from entity: Books) {
+        self.title = entity.title ?? ""
+        self.authors = entity.authors?.components(separatedBy: ",") ?? []
+        self.price = Int(entity.price)
+        self.thumbnail = entity.thumbnail ?? ""
+        self.contents = entity.contents ?? ""
+        self.isbn = entity.isbn ?? ""
+
+    }
+}
+

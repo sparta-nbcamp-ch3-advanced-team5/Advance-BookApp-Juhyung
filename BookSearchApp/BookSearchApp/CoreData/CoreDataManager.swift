@@ -60,7 +60,9 @@ final class CoreDataManager {
         let deleteRequest = NSBatchDeleteRequest(fetchRequest: request)
         do {
             try context.execute(deleteRequest)
-            saveContext()
+            //NSBatchDeleteRequest에서는 영구 저장소에 직접 접근하여 삭제하는 방식이라 func save가 필요없다
+            //서동환님 리뷰
+//            saveContext()
         } catch {
             print("error: \(error.localizedDescription)")
         }

@@ -163,7 +163,6 @@ class SearchViewController: UIViewController {
 extension SearchViewController: UISearchBarDelegate {
 
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        print("🔍 검색 버튼 클릭됨")
         guard let query = searchBar.text, !query.isEmpty else { return }
         viewModel.query.accept(query)
 
@@ -232,5 +231,11 @@ extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSo
         CoreDataManager.shared.addRecentBook(book)
     }
 
+}
 
+extension SearchViewController: UIScrollViewDelegate {
+
+//    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+//        <#code#>
+//    }
 }

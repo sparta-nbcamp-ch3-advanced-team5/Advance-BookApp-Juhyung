@@ -10,14 +10,19 @@ import Foundation
 import Alamofire
 import RxSwift
 
+enum KakaoDB {
+    case search
+}
+
 class NetworkManager {
 
-    let apiKey = "f80a80c44f07dbdb1050a27b0b7f9999"
+    
     static let shared = NetworkManager()
 
     func searchBooks(query: String) -> Single<[BookDocument]> {
 
-        let url = "https://dapi.kakao.com/v3/search/book?query=\(query)&size=20&page=1"
+        let url = "https://dapi.kakao.com/v3/search/book?query=\(query)"
+        let apiKey = Bundle.main.infoDictionary?["APIKey"] as! String
 
         let headers: HTTPHeaders = ["Authorization": "KakaoAK \(apiKey)"]
 

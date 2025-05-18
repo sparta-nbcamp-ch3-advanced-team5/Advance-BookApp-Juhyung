@@ -55,6 +55,7 @@ class BookCell: UICollectionViewCell {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
+
         return imageView
     }()
 
@@ -75,6 +76,7 @@ class BookCell: UICollectionViewCell {
 
         contentView.layer.borderWidth = 1
         contentView.layer.borderColor = UIColor.black.cgColor
+
 
         titleLabel.snp.makeConstraints {
             $0.trailing.lessThanOrEqualTo(priceLabel.snp.leading).offset(-8)

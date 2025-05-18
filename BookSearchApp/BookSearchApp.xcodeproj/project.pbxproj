@@ -25,10 +25,11 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		F497127E2DD0B828003B82D2 /* Exceptions for "BookSearchApp" folder in "BookSearchApp" target */ = {
+		F45B90C62DDA00BA00EA4859 /* Exceptions for "BookSearchApp" folder in "BookSearchApp" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				Info.plist,
+				Application/APIKey.xcconfig,
+				Application/Info.Plist,
 			);
 			target = F497126B2DD0B826003B82D2 /* BookSearchApp */;
 		};
@@ -38,7 +39,7 @@
 		F497126E2DD0B826003B82D2 /* BookSearchApp */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				F497127E2DD0B828003B82D2 /* Exceptions for "BookSearchApp" folder in "BookSearchApp" target */,
+				F45B90C62DDA00BA00EA4859 /* Exceptions for "BookSearchApp" folder in "BookSearchApp" target */,
 			);
 			path = BookSearchApp;
 			sourceTree = "<group>";
@@ -183,7 +184,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 5Z933926NX;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = BookSearchApp/Info.plist;
+				INFOPLIST_FILE = BookSearchApp/Application/Info.Plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -210,7 +211,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 5Z933926NX;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = BookSearchApp/Info.plist;
+				INFOPLIST_FILE = BookSearchApp/Application/Info.Plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -230,6 +231,8 @@
 		};
 		F49712822DD0B828003B82D2 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = F497126E2DD0B826003B82D2 /* BookSearchApp */;
+			baseConfigurationReferenceRelativePath = Application/APIKey.xcconfig;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -293,6 +296,8 @@
 		};
 		F49712832DD0B828003B82D2 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = F497126E2DD0B826003B82D2 /* BookSearchApp */;
+			baseConfigurationReferenceRelativePath = Application/APIKey.xcconfig;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;

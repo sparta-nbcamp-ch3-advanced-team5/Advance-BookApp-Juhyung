@@ -9,6 +9,7 @@ import Foundation
 
 struct ApiResponse: Codable {
     let documents: [BookDocument]
+    let meta: Meta
 }
 
 struct BookDocument: Codable {
@@ -18,7 +19,6 @@ struct BookDocument: Codable {
     let thumbnail: String
     let contents: String
     let isbn: String
-
 }
 
 extension BookDocument {
@@ -29,7 +29,18 @@ extension BookDocument {
         self.thumbnail = entity.thumbnail ?? ""
         self.contents = entity.contents ?? ""
         self.isbn = entity.isbn ?? ""
-
     }
 }
 
+struct Meta: Codable {
+
+    let totalCount: Int
+    let pageableCount: Int
+    let isEnd: Bool
+
+    enum CodingKeys: String, CodingKey {
+        case totalCount = "total_count"
+        case pageableCount = "pageable_count"
+        case isEnd = "is_end"
+    }
+}

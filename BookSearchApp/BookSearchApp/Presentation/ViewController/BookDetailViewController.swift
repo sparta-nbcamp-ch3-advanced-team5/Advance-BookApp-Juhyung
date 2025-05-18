@@ -104,9 +104,6 @@ class BookDetailViewController: UIViewController {
         configureView()
     }
 
-    //처음에 그냥 contentView에 레이아웃을 줬었음 스크롤해도 각 item이 이상하게 움직임
-    //이것저것 스택뷰로 바꾸고 하다보니 코드 레거시는 남아있는데 잘되서 나중에 건들여볼예정
-    //descriptionLabel이 내용이 많지는 않아서 현재 스크롤이 안되는것같음 + 줄거리를 전체다 불러오지 못하는 것 같음
     private func setupLayout() {
 
         [scrollView,floatingView]
@@ -132,33 +129,9 @@ class BookDetailViewController: UIViewController {
             $0.bottom.equalTo(floatingView.snp.top).offset(-12)
         }
 
-//        titleLabel.snp.makeConstraints {
-//            $0.top.equalTo(view.safeAreaLayoutGuide).offset(20)
-//            $0.leading.trailing.equalToSuperview().inset(-12)
-//        }
-//
-//        authorLabel.snp.makeConstraints {
-//            $0.top.equalTo(titleLabel.snp.bottom).offset(12)
-//            $0.leading.trailing.equalToSuperview().inset(-12)
-//        }
-
         imageView.snp.makeConstraints {
-//            $0.top.equalTo(authorLabel.snp.bottom).offset(20)
-//            $0.centerX.equalToSuperview()
-//            $0.width.equalTo(200)
             $0.height.equalTo(350)
         }
-
-//        priceLabel.snp.makeConstraints {
-//            $0.top.equalTo(imageView.snp.bottom).offset(12)
-//            $0.leading.trailing.equalToSuperview().inset(-12)
-//        }
-//
-//        descriptionLabel.snp.makeConstraints {
-//            $0.top.equalTo(priceLabel.snp.bottom).offset(16)
-//            $0.leading.trailing.equalToSuperview().inset(40)
-//            $0.bottom.equalToSuperview().inset(20)
-//        }
 
         closeButton.snp.makeConstraints {
             $0.leading.top.bottom.equalToSuperview()

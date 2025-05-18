@@ -10,9 +10,9 @@ import UIKit
 import SnapKit
 import Kingfisher
 
-class CartBookCell: UITableViewCell {
+class BookCell: UICollectionViewCell {
 
-    static let id = "CartBookCell"
+    static let id = "BookCell"
 
     private let titleLabel: UILabel = {
         let label = UILabel()
@@ -51,21 +51,32 @@ class CartBookCell: UITableViewCell {
         return stackView
     }()
 
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
+    private let thumbnailImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
+
+        return imageView
+    }()
+
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        backgroundColor = .yellow
         setupLayout()
     }
 
     required init?(coder: NSCoder) { fatalError() }
 
     private func setupLayout() {
-        contentView.addSubview(horizontalItemsStack)
+        [thumbnailImageView, horizontalItemsStack]
+            .forEach {contentView.addSubview($0)}
 
         [titleLabel, authorLabel, priceLabel]
             .forEach{horizontalItemsStack.addArrangedSubview($0)}
 
         contentView.layer.borderWidth = 1
         contentView.layer.borderColor = UIColor.black.cgColor
+
 
         titleLabel.snp.makeConstraints {
             $0.trailing.lessThanOrEqualTo(priceLabel.snp.leading).offset(-8)
@@ -74,14 +85,32 @@ class CartBookCell: UITableViewCell {
         horizontalItemsStack.snp.makeConstraints {
             $0.edges.equalToSuperview().inset(12)
         }
+
+        thumbnailImageView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
     }
 
-    func configure(with book: Books) {
-        titleLabel.text = book.title ?? "제목 없음"
-        //작가 없음 출력안됨
-        authorLabel.text = book.authors?.isEmpty == false ? book.authors : "작가 없음"
+    func configure(with book: BookDocument, thumbnailOnly: Bool) {
+        if let url = URL(string: book.thumbnail) {
+            thumbnailImageView.kf.setImage(with: url)
+        } else {
+            thumbnailImageView.image = nil
+        }
 
-        let price = NumberFormatter.localizedString(from: NSNumber(value: book.price), number: .decimal)
-        priceLabel.text = "\(price)원"
+        if thumbnailOnly {
+            thumbnailImageView.isHidden = false
+            horizontalItemsStack.isHidden = true
+            contentView.bringSubviewToFront(thumbnailImageView)
+        } else {
+            thumbnailImageView.isHidden = true
+            horizontalItemsStack.isHidden = false
+
+            titleLabel.text = book.title
+            authorLabel.text = book.authors.first ?? "작가 없음"
+            let price = NumberFormatter.localizedString(from: NSNumber(value: book.price), number: .decimal)
+            priceLabel.text = "\(price)원"
+        }
     }
+
 }

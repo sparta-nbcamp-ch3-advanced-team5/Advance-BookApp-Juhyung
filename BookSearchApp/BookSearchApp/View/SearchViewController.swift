@@ -10,12 +10,18 @@ import UIKit
 import SnapKit
 import RxSwift
 
+
 class SearchViewController: UIViewController {
 
     private let searchBar = UISearchBar()
-    private var books: [BookDocument] = []
+//    private var books: [BookDocument] = []
     private let disposeBag = DisposeBag()
+
+
+    //RX
+    private let viewModel = SearchViewModel()
     private var recentlyViewedBooks: [BookDocument] = []
+    private var searchBooks: [BookDocument] = []
 
 
     private lazy var collectionView: UICollectionView = {
@@ -36,7 +42,7 @@ class SearchViewController: UIViewController {
         setupSearchBar()
         setupLayout()
         loadRecentlyViewedBooks()
-        collectionView.reloadData()
+        bindViewModel()
         searchBar.becomeFirstResponder()
     }
 
@@ -129,6 +135,22 @@ class SearchViewController: UIViewController {
         }
     }
 
+    //binding
+    private func bindViewModel() {
+        viewModel.bookRelay
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] books in
+                self?.searchBooks = books
+                self?.collectionView.reloadSections(IndexSet(integer: 1))
+            }).disposed(by: disposeBag)
+
+        viewModel.errorMessage
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { error in
+                print("bindViewModel 에러 발생: ", error)
+            }).disposed(by: disposeBag)
+    }
+
     private func loadRecentlyViewedBooks() {
         recentlyViewedBooks = CoreDataManager.shared.fetchRecentViewedBooks().map {
             BookDocument(title: $0.title, authors: $0.authors, price: $0.price, thumbnail: $0.thumbnail, contents: $0.contents, isbn: $0.isbn)
@@ -141,22 +163,10 @@ class SearchViewController: UIViewController {
 extension SearchViewController: UISearchBarDelegate {
 
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        print("🔍 검색 버튼 클릭됨")
         guard let query = searchBar.text, !query.isEmpty else { return }
+        viewModel.query.accept(query)
 
-        NetworkManager.shared.searchBooks(query: query)
-            .observe(on: MainScheduler.instance)
-            .subscribe(
-                onSuccess: { [weak self] books in
-                    guard let self = self else { return }
-                    self.books = books
-                    self.collectionView.reloadSections(IndexSet(integer: 1))
-                    searchBar.resignFirstResponder()
-                },
-                onFailure: { error in
-                    print("error: \(error.localizedDescription)")
-                }
-            )
-            .disposed(by: disposeBag)
     }
 
 }
@@ -169,7 +179,7 @@ extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSo
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return section == 0 ? recentlyViewedBooks.count : books.count
+        return section == 0 ? recentlyViewedBooks.count : searchBooks.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -178,7 +188,7 @@ extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSo
         }
 
         let isThumbnailOnly = indexPath.section == 0
-        let book = isThumbnailOnly ? recentlyViewedBooks[indexPath.item] : books[indexPath.item]
+        let book = isThumbnailOnly ? recentlyViewedBooks[indexPath.item] : searchBooks[indexPath.item]
         cell.configure(with: book, thumbnailOnly: isThumbnailOnly)
         return cell
     }
@@ -199,7 +209,7 @@ extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSo
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let book = indexPath.section == 0 ? recentlyViewedBooks[indexPath.item] : books[indexPath.item]
+        let book = indexPath.section == 0 ? recentlyViewedBooks[indexPath.item] : searchBooks[indexPath.item]
 
         let detailVC = BookDetailViewController()
         detailVC.bookDocument = book

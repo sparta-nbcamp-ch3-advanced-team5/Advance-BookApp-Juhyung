@@ -16,24 +16,24 @@ class NetworkManager {
 
     func searchBooks(query: String) -> Single<[BookDocument]> {
 
-           let url = "https://dapi.kakao.com/v3/search/book?query=\(query)&size=20&page=1"
+        let url = "https://dapi.kakao.com/v3/search/book?query=\(query)&size=20&page=1"
 
-           let headers: HTTPHeaders = ["Authorization": "KakaoAK \(apiKey)"]
+        let headers: HTTPHeaders = ["Authorization": "KakaoAK \(apiKey)"]
 
-           return Single.create { single in
-               AF.request(url, headers: headers)
-                   .validate()
-                   .responseDecodable(of: ApiResponse.self) { response in
-                       switch response.result {
-                       case .success(let result):
-                           single(.success(result.documents))
-                       case .failure(let error):
-                           single(.failure(error))
-                       }
-                   }
-               return Disposables.create()
-           }
-       }
+        return Single.create { single in
+            AF.request(url, headers: headers)
+                .validate()
+                .responseDecodable(of: ApiResponse.self) { response in
+                    switch response.result {
+                    case .success(let result):
+                        single(.success(result.documents))
+                    case .failure(let error):
+                        single(.failure(error))
+                    }
+                }
+            return Disposables.create()
+        }
+    }
 }
 
 

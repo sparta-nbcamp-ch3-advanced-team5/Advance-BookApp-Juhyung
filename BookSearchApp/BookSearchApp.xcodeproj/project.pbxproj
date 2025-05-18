@@ -12,6 +12,7 @@
 		F48689582DD2682F005A1E5B /* BooksCoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F48689562DD2682F005A1E5B /* BooksCoreData.xcdatamodeld */; };
 		F49713062DD0BF0A003B82D2 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = F49713052DD0BF0A003B82D2 /* SnapKit */; };
 		F49713382DD14D8D003B82D2 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = F49713372DD14D8D003B82D2 /* RxSwift */; };
+		F49F69182DD883820078E9AD /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = F49F69172DD883820078E9AD /* RxCocoa */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,6 +48,7 @@
 			files = (
 				F486894F2DD219EE005A1E5B /* Kingfisher in Frameworks */,
 				F48689522DD21A10005A1E5B /* Alamofire in Frameworks */,
+				F49F69182DD883820078E9AD /* RxCocoa in Frameworks */,
 				F49713382DD14D8D003B82D2 /* RxSwift in Frameworks */,
 				F49713062DD0BF0A003B82D2 /* SnapKit in Frameworks */,
 			);
@@ -96,6 +98,7 @@
 				F49713372DD14D8D003B82D2 /* RxSwift */,
 				F486894E2DD219EE005A1E5B /* Kingfisher */,
 				F48689512DD21A10005A1E5B /* Alamofire */,
+				F49F69172DD883820078E9AD /* RxCocoa */,
 			);
 			productName = BookSearchApp;
 			productReference = F497126C2DD0B826003B82D2 /* BookSearchApp.app */;
@@ -414,6 +417,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = F49713362DD14D8D003B82D2 /* XCRemoteSwiftPackageReference "RxSwift" */;
 			productName = RxSwift;
+		};
+		F49F69172DD883820078E9AD /* RxCocoa */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F49713362DD14D8D003B82D2 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxCocoa;
 		};
 /* End XCSwiftPackageProductDependency section */
 

@@ -7,7 +7,6 @@
 
 import Foundation
 
-//codable 과 decodable?
 struct ApiResponse: Codable {
     let documents: [BookDocument]
 }
@@ -17,4 +16,20 @@ struct BookDocument: Codable {
     let authors: [String]
     let price: Int
     let thumbnail: String
+    let contents: String
+    let isbn: String
+
 }
+
+extension BookDocument {
+    init(from entity: BooksEntity) {
+        self.title = entity.title ?? ""
+        self.authors = entity.authors?.components(separatedBy: ",") ?? []
+        self.price = Int(entity.price)
+        self.thumbnail = entity.thumbnail ?? ""
+        self.contents = entity.contents ?? ""
+        self.isbn = entity.isbn ?? ""
+
+    }
+}
+

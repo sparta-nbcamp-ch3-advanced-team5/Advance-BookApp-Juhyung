@@ -14,7 +14,7 @@ final class CoreDataManager {
     let persistentContainer: NSPersistentContainer
 
     private init() {
-        persistentContainer = NSPersistentContainer(name: "BooksCoreData")
+        persistentContainer = NSPersistentContainer(name: "BookSearchApp")
         persistentContainer.loadPersistentStores { _, error in
             if let error = error {
                 fatalError("CoreData Load Error: \(error)")
@@ -34,8 +34,8 @@ final class CoreDataManager {
         }
     }
 
-    func fetchBooks() -> [Books] {
-        let request: NSFetchRequest<Books> = Books.fetchRequest()
+    func fetchBooks() -> [BooksEntity] {
+        let request: NSFetchRequest<BooksEntity> = BooksEntity.fetchRequest()
         do {
             return try context.fetch(request)
         } catch {
@@ -67,7 +67,7 @@ final class CoreDataManager {
     }
 
     func fetchRecentViewedBooks() -> [BookDocument] {
-        let request: NSFetchRequest<Books> = Books.fetchRequest()
+        let request: NSFetchRequest<BooksEntity> = BooksEntity.fetchRequest()
         request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
         request.fetchLimit = 10
 
@@ -83,7 +83,7 @@ final class CoreDataManager {
             context.delete(oldView)
         }
 
-        let recent = RecentView(context: context)
+        let recent = RecentViewEntity(context: context)
         recent.date = Date()
         recent.book = book
         book.recent = recent
@@ -94,8 +94,8 @@ final class CoreDataManager {
 
 
 
-    func fetchSavedBooks() -> [Books] {
-            let request: NSFetchRequest<SavedBooks> = SavedBooks.fetchRequest()
+    func fetchSavedBooks() -> [BooksEntity] {
+            let request: NSFetchRequest<SavedBooksEntity> = SavedBooksEntity.fetchRequest()
             request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
             let results = (try? context.fetch(request)) ?? []
             return results.compactMap { $0.book }
@@ -109,7 +109,7 @@ final class CoreDataManager {
             //연결 끊기
             book.recent = nil
         } else {
-            let saved = SavedBooks(context: context)
+            let saved = SavedBooksEntity(context: context)
             saved.date = Date()
             saved.book = book
             book.saved = saved
@@ -118,16 +118,16 @@ final class CoreDataManager {
         saveContext()
     }
 
-    func getOrCreateBook(_ document: BookDocument) -> Books {
-        let request: NSFetchRequest<Books> = Books.fetchRequest()
+    func getOrCreateBook(_ document: BookDocument) -> BooksEntity {
+        let request: NSFetchRequest<BooksEntity> = BooksEntity.fetchRequest()
         request.predicate = NSPredicate(format: "isbn == %@", document.isbn)
 
         let fetchItem = try? context.fetch(request)
-        let newBook: Books
+        let newBook: BooksEntity
         if let itemExist = fetchItem?.first {
             newBook = itemExist
         } else {
-            newBook = Books(context: context)
+            newBook = BooksEntity(context: context)
         }
 
         newBook.title = document.title
@@ -143,7 +143,7 @@ final class CoreDataManager {
     }
 
     func  trimRecentViews(_ limit: Int) {
-        let request: NSFetchRequest<RecentView> = RecentView.fetchRequest()
+        let request: NSFetchRequest<RecentViewEntity> = RecentViewEntity.fetchRequest()
         request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
 
 

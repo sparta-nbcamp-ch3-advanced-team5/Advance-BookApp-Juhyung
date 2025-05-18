@@ -22,7 +22,7 @@ struct BookDocument: Codable {
 }
 
 extension BookDocument {
-    init(from entity: Books) {
+    init(from entity: BooksEntity) {
         self.title = entity.title ?? ""
         self.authors = entity.authors?.components(separatedBy: ",") ?? []
         self.price = Int(entity.price)

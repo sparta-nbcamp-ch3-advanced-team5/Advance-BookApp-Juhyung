@@ -158,6 +158,16 @@ class SearchViewController: UIViewController {
         collectionView.reloadSections(IndexSet(integer: 0))
     }
 
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let offsetY = scrollView.contentOffset.y
+        let contentHeight = scrollView.contentSize.height
+        let height = scrollView.frame.size.height
+
+        if offsetY > contentHeight - height * 1.5 {
+            viewModel.NextPageCreater.accept(())
+        }
+    }
+
 }
 
 extension SearchViewController: UISearchBarDelegate {
@@ -231,11 +241,4 @@ extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSo
         CoreDataManager.shared.addRecentBook(book)
     }
 
-}
-
-extension SearchViewController: UIScrollViewDelegate {
-
-//    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-//        <#code#>
-//    }
 }

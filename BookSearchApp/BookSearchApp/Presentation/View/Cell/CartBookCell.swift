@@ -8,19 +8,18 @@
 import Foundation
 import UIKit
 import SnapKit
+import Kingfisher
 
-class BookCell: UICollectionViewCell {
+class CartBookCell: UITableViewCell {
 
-    static let id = "BookCell"
+    static let id = "CartBookCell"
 
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 16, weight: .bold)
         label.lineBreakMode = .byTruncatingTail
         label.numberOfLines = 1
-        //잘리면 안되게 만드는 속성
-        label.setContentHuggingPriority(.defaultLow, for: .horizontal)
-        label.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
+        label.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         return label
     }()
 
@@ -30,8 +29,7 @@ class BookCell: UICollectionViewCell {
         label.textColor = .gray
         label.lineBreakMode = .byTruncatingTail
         label.numberOfLines = 1
-        label.setContentHuggingPriority(.defaultLow, for: .horizontal)
-        label.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
+        label.setContentHuggingPriority(.required, for: .horizontal)
         return label
     }()
 
@@ -41,22 +39,20 @@ class BookCell: UICollectionViewCell {
         label.lineBreakMode = .byTruncatingTail
         label.numberOfLines = 1
         label.setContentHuggingPriority(.required, for: .horizontal)
-        label.setContentCompressionResistancePriority(.required, for: .horizontal)
         return label
     }()
 
     private let horizontalItemsStack: UIStackView = {
-        let stack = UIStackView()
-        stack.axis = .horizontal
-        stack.spacing = 12
-        stack.alignment = .center
-        stack.distribution = .fill
-        return stack
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.spacing = 8
+        stackView.alignment = .center
+        stackView.distribution = .fill
+        return stackView
     }()
 
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        backgroundColor = .yellow
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupLayout()
     }
 
@@ -65,25 +61,27 @@ class BookCell: UICollectionViewCell {
     private func setupLayout() {
         contentView.addSubview(horizontalItemsStack)
 
-        horizontalItemsStack.addArrangedSubview(titleLabel)
-        horizontalItemsStack.addArrangedSubview(authorLabel)
-        horizontalItemsStack.addArrangedSubview(priceLabel)
-
         [titleLabel, authorLabel, priceLabel]
             .forEach{horizontalItemsStack.addArrangedSubview($0)}
 
         contentView.layer.borderWidth = 1
         contentView.layer.borderColor = UIColor.black.cgColor
 
+        titleLabel.snp.makeConstraints {
+            $0.trailing.lessThanOrEqualTo(priceLabel.snp.leading).offset(-8)
+        }
+
         horizontalItemsStack.snp.makeConstraints {
             $0.edges.equalToSuperview().inset(12)
         }
     }
 
-    func configure(with book: BookDocument) {
-        titleLabel.text = book.title
+    func configure(with book: BooksEntity) {
+        titleLabel.text = book.title ?? "제목 없음"
         //작가 없음 출력안됨
-        authorLabel.text = book.authors.first ?? "작가 없음"
-        priceLabel.text = "\(book.price)원"
+        authorLabel.text = book.authors?.isEmpty == false ? book.authors : "작가 없음"
+
+        let price = NumberFormatter.localizedString(from: NSNumber(value: book.price), number: .decimal)
+        priceLabel.text = "\(price)원"
     }
 }

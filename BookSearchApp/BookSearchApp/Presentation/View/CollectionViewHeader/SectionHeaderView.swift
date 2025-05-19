@@ -16,7 +16,6 @@ class SectionHeaderView: UICollectionReusableView {
     private let label: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 24, weight: .heavy)
-        label.text = "검색 결과"
         return label
     }()
 

@@ -7,19 +7,29 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F486894F2DD219EE005A1E5B /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = F486894E2DD219EE005A1E5B /* Kingfisher */; };
+		F48689522DD21A10005A1E5B /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = F48689512DD21A10005A1E5B /* Alamofire */; };
 		F49713062DD0BF0A003B82D2 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = F49713052DD0BF0A003B82D2 /* SnapKit */; };
 		F49713382DD14D8D003B82D2 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = F49713372DD14D8D003B82D2 /* RxSwift */; };
+		F49F69182DD883820078E9AD /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = F49F69172DD883820078E9AD /* RxCocoa */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		F497126C2DD0B826003B82D2 /* BookSearchApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BookSearchApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F49F69392DD9DB1F0078E9AD /* BooksEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "BooksEntity+CoreDataClass.swift"; path = "BookSearchApp/CoreData/BooksEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
+		F49F693A2DD9DB1F0078E9AD /* BooksEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "BooksEntity+CoreDataProperties.swift"; path = "BookSearchApp/CoreData/BooksEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		F49F693B2DD9DB1F0078E9AD /* RecentViewEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "RecentViewEntity+CoreDataClass.swift"; path = "BookSearchApp/CoreData/RecentViewEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
+		F49F693C2DD9DB1F0078E9AD /* RecentViewEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "RecentViewEntity+CoreDataProperties.swift"; path = "BookSearchApp/CoreData/RecentViewEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		F49F693D2DD9DB1F0078E9AD /* SavedBooksEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "SavedBooksEntity+CoreDataClass.swift"; path = "BookSearchApp/CoreData/SavedBooksEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
+		F49F693E2DD9DB1F0078E9AD /* SavedBooksEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "SavedBooksEntity+CoreDataProperties.swift"; path = "BookSearchApp/CoreData/SavedBooksEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		F497127E2DD0B828003B82D2 /* Exceptions for "BookSearchApp" folder in "BookSearchApp" target */ = {
+		F45B90C62DDA00BA00EA4859 /* Exceptions for "BookSearchApp" folder in "BookSearchApp" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				Info.plist,
+				Application/APIKey.xcconfig,
+				Application/Info.Plist,
 			);
 			target = F497126B2DD0B826003B82D2 /* BookSearchApp */;
 		};
@@ -29,7 +39,7 @@
 		F497126E2DD0B826003B82D2 /* BookSearchApp */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				F497127E2DD0B828003B82D2 /* Exceptions for "BookSearchApp" folder in "BookSearchApp" target */,
+				F45B90C62DDA00BA00EA4859 /* Exceptions for "BookSearchApp" folder in "BookSearchApp" target */,
 			);
 			path = BookSearchApp;
 			sourceTree = "<group>";
@@ -41,6 +51,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F486894F2DD219EE005A1E5B /* Kingfisher in Frameworks */,
+				F48689522DD21A10005A1E5B /* Alamofire in Frameworks */,
+				F49F69182DD883820078E9AD /* RxCocoa in Frameworks */,
 				F49713382DD14D8D003B82D2 /* RxSwift in Frameworks */,
 				F49713062DD0BF0A003B82D2 /* SnapKit in Frameworks */,
 			);
@@ -52,6 +65,12 @@
 		F49712632DD0B826003B82D2 = {
 			isa = PBXGroup;
 			children = (
+				F49F69392DD9DB1F0078E9AD /* BooksEntity+CoreDataClass.swift */,
+				F49F693A2DD9DB1F0078E9AD /* BooksEntity+CoreDataProperties.swift */,
+				F49F693B2DD9DB1F0078E9AD /* RecentViewEntity+CoreDataClass.swift */,
+				F49F693C2DD9DB1F0078E9AD /* RecentViewEntity+CoreDataProperties.swift */,
+				F49F693D2DD9DB1F0078E9AD /* SavedBooksEntity+CoreDataClass.swift */,
+				F49F693E2DD9DB1F0078E9AD /* SavedBooksEntity+CoreDataProperties.swift */,
 				F497126E2DD0B826003B82D2 /* BookSearchApp */,
 				F497126D2DD0B826003B82D2 /* Products */,
 			);
@@ -87,6 +106,9 @@
 			packageProductDependencies = (
 				F49713052DD0BF0A003B82D2 /* SnapKit */,
 				F49713372DD14D8D003B82D2 /* RxSwift */,
+				F486894E2DD219EE005A1E5B /* Kingfisher */,
+				F48689512DD21A10005A1E5B /* Alamofire */,
+				F49F69172DD883820078E9AD /* RxCocoa */,
 			);
 			productName = BookSearchApp;
 			productReference = F497126C2DD0B826003B82D2 /* BookSearchApp.app */;
@@ -119,6 +141,8 @@
 			packageReferences = (
 				F49713042DD0BF0A003B82D2 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				F49713362DD14D8D003B82D2 /* XCRemoteSwiftPackageReference "RxSwift" */,
+				F486894D2DD219EE005A1E5B /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				F48689502DD21A10005A1E5B /* XCRemoteSwiftPackageReference "Alamofire" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = F497126D2DD0B826003B82D2 /* Products */;
@@ -160,7 +184,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 5Z933926NX;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = BookSearchApp/Info.plist;
+				INFOPLIST_FILE = BookSearchApp/Application/Info.Plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -187,7 +211,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 5Z933926NX;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = BookSearchApp/Info.plist;
+				INFOPLIST_FILE = BookSearchApp/Application/Info.Plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -207,6 +231,8 @@
 		};
 		F49712822DD0B828003B82D2 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = F497126E2DD0B826003B82D2 /* BookSearchApp */;
+			baseConfigurationReferenceRelativePath = Application/APIKey.xcconfig;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -270,6 +296,8 @@
 		};
 		F49712832DD0B828003B82D2 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = F497126E2DD0B826003B82D2 /* BookSearchApp */;
+			baseConfigurationReferenceRelativePath = Application/APIKey.xcconfig;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -348,6 +376,22 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		F486894D2DD219EE005A1E5B /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.3.2;
+			};
+		};
+		F48689502DD21A10005A1E5B /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.10.2;
+			};
+		};
 		F49713042DD0BF0A003B82D2 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
@@ -367,6 +411,16 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		F486894E2DD219EE005A1E5B /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F486894D2DD219EE005A1E5B /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
+		F48689512DD21A10005A1E5B /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F48689502DD21A10005A1E5B /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
 		F49713052DD0BF0A003B82D2 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = F49713042DD0BF0A003B82D2 /* XCRemoteSwiftPackageReference "SnapKit" */;
@@ -376,6 +430,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = F49713362DD14D8D003B82D2 /* XCRemoteSwiftPackageReference "RxSwift" */;
 			productName = RxSwift;
+		};
+		F49F69172DD883820078E9AD /* RxCocoa */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F49713362DD14D8D003B82D2 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxCocoa;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
